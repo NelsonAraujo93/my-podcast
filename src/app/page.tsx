@@ -1,5 +1,3 @@
-// pages/index.tsx
-
 import React from 'react';
 import Link from 'next/link';
 
@@ -16,7 +14,18 @@ const HomePage: React.FC = () => {
       <ul>
         {podcasts.map(podcast => (
           <li key={podcast.id}>
-            <Link href={`/podcast/${podcast.id}`}>
+            <Link href={`/podcast/`}>
+                <h3>{podcast.title}</h3>
+            </Link>
+            <p>{podcast.description}</p>
+          </li>
+        ))}
+      </ul>
+      <h2>Popular Episodes:</h2>
+      <ul>
+        {podcasts.map(podcast => (
+          <li key={podcast.id}>
+            <Link href={`/podcast/episode`}>
                 <h3>{podcast.title}</h3>
             </Link>
             <p>{podcast.description}</p>
