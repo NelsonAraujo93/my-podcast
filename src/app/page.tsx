@@ -1,37 +1,31 @@
 import React from 'react';
-import Link from 'next/link';
+import PodcastCard from '@/app/ui/PodcastCard';
+import Podcast from '@/types/Podcast';
 
-const HomePage: React.FC = () => {
-  const podcasts = [
-    { id: '1', title: 'Podcast 1', description: 'Description of Podcast 1' },
-    { id: '2', title: 'Podcast 2', description: 'Description of Podcast 2' },
-  ];
+const HomePage = async () => {
+  const podcasts = await fetch('https://itunes.apple.com/us/rss/toppodcasts/limit=100/json');
+  const podcastJson = await podcasts.json();
+  const podcastsArray = podcastJson.feed.entry as Podcast[];
+  console.log(podcastJson);
+  debugger;
+  if (!podcasts.ok) {
+    throw new Error('Failed to fetch podcasts');
+  }
 
   return (
     <div>
       <h1>Welcome to My Podcast App</h1>
       <h2>Popular Podcasts:</h2>
       <ul>
-        {podcasts.map(podcast => (
-          <li key={podcast.id}>
-            <Link href={`/podcast/`}>
-                <h3>{podcast.title}</h3>
-            </Link>
-            <p>{podcast.description}</p>
+      {
+        podcastsArray.map((podcast: Podcast) => (
+          <li key={podcast.id.label}>
+            <PodcastCard podcast={podcast} />
           </li>
-        ))}
+        ))
+      }
       </ul>
-      <h2>Popular Episodes:</h2>
-      <ul>
-        {podcasts.map(podcast => (
-          <li key={podcast.id}>
-            <Link href={`/podcast/episode`}>
-                <h3>{podcast.title}</h3>
-            </Link>
-            <p>{podcast.description}</p>
-          </li>
-        ))}
-      </ul>
+      
     </div>
   );
 };
