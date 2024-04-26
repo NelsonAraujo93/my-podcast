@@ -1,0 +1,11 @@
+.dashBoard {
+    display: flex;
+    height: 100vh;
+    flex-direction: row;
+}
+
+.sideMenu {
+    width: 100px;
+    height: 100%;
+    background-color: #ededed;
+}
