@@ -1,0 +1,27 @@
+.detailsContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.episdodeCounterContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+
+}
+
+.episodesCounter {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.episodesContainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 20px;
+  padding-top: 20px;
+}

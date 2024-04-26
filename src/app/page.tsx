@@ -4,47 +4,29 @@ import PodcastCard from '@/app/ui/PodcastCard';
 import Podcast from '@/types/Podcast';
 import styles from '@/app/styles/home.module.css';
 import SearchInput from '@/app/ui/SearchInput';
+import { usePodcastStore } from '@/store/podcastStore';
 
 const HomePage: React.FC = () => {
-  const [podcasts, setPodcasts] = useState<Podcast[]>([]);
-  const [filteredPodcasts, setFilteredPodcasts] = useState<Podcast[] | null>(null);
+  const podcasts = usePodcastStore(state => state.podcasts);
+  const filteredPodcasts = usePodcastStore(state => state.filteredPodcasts);
 
   useEffect(() => {
-    const fetchPodcasts = async () => {
-      try {
-        const response = await fetch('https://itunes.apple.com/us/rss/toppodcasts/limit=100/json');
-        const jsonData = await response.json();
-        const fetchedPodcasts = jsonData.feed.entry as Podcast[];
-        setPodcasts(fetchedPodcasts);
-        setFilteredPodcasts(fetchedPodcasts);  // Initialize with all podcasts
-      } catch (error) {
-        console.error('Failed to fetch podcasts', error);
-        throw new Error('Failed to fetch podcasts');
-      }
-    };
-
-    fetchPodcasts();
-  }, []);
+    if (podcasts.length === 0) {
+      usePodcastStore.getState().getPodcasts();
+    }
+  }, [podcasts]);
 
   const handleOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const searchValue = event.target.value.toLowerCase();
-    const filtered = podcasts.filter(podcast => {
-      const name = podcast['im:name'].label.toLowerCase();
-      const author = podcast['im:artist'].label.toLowerCase();
-      return name.includes(searchValue) || author.includes(searchValue);
-    });
-    setFilteredPodcasts(filtered);
+    usePodcastStore.getState().searchPodcasts(searchValue);
   };
 
   return (
     <div className={styles.podcastContainer}>
-     <div className={styles.podcastContainerHeader}>
-      <div className={styles.count}>{filteredPodcasts? filteredPodcasts.length : podcasts.length}</div>
-      <div className={styles.search}>
-       <SearchInput handle={handleOnChange} />
-        <button>Search</button>
+      <div className={styles.podcastContainerHeader}>
+        <div className={styles.count}>Results: {filteredPodcasts ? filteredPodcasts.length : podcasts.length}</div>
+        <SearchInput handle={handleOnChange} />
       </div>
-     </div>
       <ul className={styles.podcastList}>
         {
           filteredPodcasts ? (
@@ -56,7 +38,6 @@ const HomePage: React.FC = () => {
               ))
             ) : (
               <li>No podcasts found</li>
-            
             )
           ) : (
             podcasts.map((podcast: Podcast) => (
@@ -67,7 +48,7 @@ const HomePage: React.FC = () => {
           )
         }
       </ul>
-      
+
     </div>
   );
 };

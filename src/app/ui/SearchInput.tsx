@@ -1,8 +1,9 @@
 import React, { ChangeEventHandler } from 'react';
+import styles from '@/app/styles/searchInput.module.css';
 
 const SearchInput = ({ handle }: { handle: ChangeEventHandler<HTMLInputElement> }) => {
   return (
-    <input type="text" placeholder="Search" onChange={handle} />
+    <input className={styles.search} type="text" placeholder="Search" onChange={handle} />
   );
 };
 
