@@ -1,4 +1,4 @@
-import styles from '@/app/ui/home.module.css';
+import styles from '@/app/styles/home.module.css';
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <html className={styles.html}>

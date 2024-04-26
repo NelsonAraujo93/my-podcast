@@ -1,0 +1,41 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  width: 240px;
+  height: 150px;
+  border-radius: 20px;
+  background-color: #f6f6f6;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  position: relative;
+}
+
+.card:hover {
+  transform: scale(1.05);
+}
+
+.image {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  position: absolute;
+  top: -60px;
+}
+
+
+.cardText {
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.author {
+  font-size: 0.8rem;
+  color: #737272;
+  font-weight: 400;
+}
