@@ -40,3 +40,10 @@
   color: #737272;
   font-weight: 400;
 }
+
+@media screen and (max-width: 680px){
+  .podcastSummary {
+    width: 100%;
+    align-items: center;
+  }
+}
