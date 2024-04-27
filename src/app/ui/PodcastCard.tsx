@@ -5,7 +5,7 @@ import Link from "next/link";
 
 export default function PodcastCard({ podcast }: { podcast: Podcast }) {
   return (
-    <Link href={`/podcast/${podcast.id.attributes["im:id"]}`}>
+    <Link className={styles.cardContainer} href={`/podcast/${podcast.id.attributes["im:id"]}`}>
       <div className={styles.card}>
         <Image
           src={podcast['im:image'][2].label}

@@ -1,4 +1,5 @@
 import styles from '@/app/styles/home.module.css';
+import Link from 'next/link';
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <html className={styles.html}>
@@ -8,12 +9,15 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       </head>
       <body className={styles.body}>
         <nav className={styles.navBar}>
-          <h1>Podcaster</h1>
+          <Link
+            href="/"
+            className={styles.link}
+          >Podcaster</Link>
           <div>Pulse animatiion</div>
         </nav>
         {children}
         <footer className={styles.footer}>
-          <p>© 2021 My Site</p>
+          <p>© 2024 My Podcast - Nelson Araujo</p>
         </footer>
       </body>
     </html>
