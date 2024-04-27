@@ -4,7 +4,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <html className={styles.html}>
       <head>
-        <title>My Site</title>
+        <title>My Podcast - By Nelson Araujo</title>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" />
       </head>
       <body className={styles.body}>
@@ -13,7 +13,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             href="/"
             className={styles.link}
           >Podcaster</Link>
-          <div>Pulse animatiion</div>
+          <div
+            className={styles.pulse}
+          ></div>
         </nav>
         {children}
         <footer className={styles.footer}>

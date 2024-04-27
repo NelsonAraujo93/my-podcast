@@ -49,3 +49,64 @@
   box-sizing: border-box;
   gap: 20px;
 }
+.navBar {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #3e72e7;
+}
+
+.count {
+  font-size: 01rem;
+  font-weight: 700;
+  background-color: #3e72e7;
+  color: white;
+  padding: 8px;
+  border-radius: 6px;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes pulseChild {
+  0% {
+    transform: scale(0.5);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(0.8);
+  }
+}
+
+.pulse {
+  animation: pulse 2s infinite;
+  width: 10px;
+  height: 10px;
+  background-color: #3e72e7;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.pulse::after {
+  content: "";
+  position: absolute;
+  display: block;
+  width: 16px;
+  height: 16px;
+  background-color: #3e71e781;
+  border-radius: 50%;
+  animation: pulseChild 1s infinite;
+}
