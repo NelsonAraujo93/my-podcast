@@ -14,11 +14,17 @@ export default function Page({params} : {params: {podcast_id: string}}) {
   }, [tracks, params.podcast_id]);
 
   const durationFormatter = (duration: number) => {
+    if (!duration){
+      return "0:00:00";
+    }
     const time = new Date(duration);
     const hours = time.getHours() - 1;
     const minutes = time.getMinutes();
     const seconds = time.getSeconds();
-    return `${hours}:${minutes}:${seconds}`;
+
+    const formattedMinutes = minutes < 10 ? `0${minutes}` : minutes;
+    const formattedSeconds = seconds < 10 ? `0${seconds}` : seconds;
+    return `${hours}:${formattedMinutes}:${formattedSeconds}`;
   }
 
   const dateFormatter = (date: string) => {
@@ -43,11 +49,13 @@ export default function Page({params} : {params: {podcast_id: string}}) {
           <tbody>
             {tracks.map((track: Track) => (
               <tr key={track.trackId}>
-                <Link className={styles.tdLink} href={`/podcast/${params.podcast_id}/episode/${track.trackId}`}>
-                  <td>{track.trackName}</td>
+                  <td>
+                    <Link className={styles.tdLink} href={`/podcast/${params.podcast_id}/episode/${track.trackId}`}>
+                      {track.trackName}
+                    </Link >
+                  </td>
                   <td>{dateFormatter(track.releaseDate)}</td>
                   <td>{durationFormatter(track.trackTimeMillis)}</td>
-                </Link>
               </tr>
             ))}
           </tbody>
