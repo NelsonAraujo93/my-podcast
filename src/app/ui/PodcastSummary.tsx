@@ -2,16 +2,16 @@ import PodcastDetailed from "@/types/PodcastDetailed";
 import Image from "next/image";
 import styles from "@/app/styles/podcastSummary.module.css";
 import Link from "next/link";
+import { usePodcastStore } from "@/store/podcastStore";
 
 export default function PodcastSummary({podcast}: {podcast: PodcastDetailed | null}) {
-
   return (
-    <Link href={`/podcast/${podcast?.collectionId}`}>
+    <Link href={`/podcast/${podcast?.collectionId}`} onClick={usePodcastStore.getState().clearSelectedTrack}>
       <div className={styles.podcastSummary}>
         <div className={styles.imageContainer}>
           <Image
             className={styles.imageDetail}
-            src={podcast ? podcast.artworkUrl600 : ""}
+            src={podcast ? podcast.artworkUrl600 : "/no-image.webp"}
             alt="podcast image"
             width={200}
             height={200}

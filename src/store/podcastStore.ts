@@ -16,8 +16,9 @@ type Actions = {
   getPodcasts: () => void;
   clearSelectedPodcast: () => void;
   searchPodcasts: (searchValue: string) => void;
-  getTracks: (id: String) => void;
+  getTracks: (id: String, episodeId: String | null) => void;
   chooseTrack: (id: String) => void;
+  clearSelectedTrack: () => void;
 }
 
 export const usePodcastStore = create<PodcastStore & Actions>((set, get) => ({
@@ -25,27 +26,40 @@ export const usePodcastStore = create<PodcastStore & Actions>((set, get) => ({
   selectedPodcast: null,
   tracks: [],
   selectedTrack: null,
+  filteredPodcasts: null,
   getPodcasts: async () => {
     const response = await fetch('https://itunes.apple.com/us/rss/toppodcasts/limit=100/genre=1310/json');
     const podcasts = await response.json();
     const fetchedPodcasts = podcasts.feed.entry as Podcast[];
-    set({ podcasts: fetchedPodcasts})
+    set({ podcasts: fetchedPodcasts })
   },
-  getTracks: async (id: String) => {
+  getTracks: async (id: String, episodeId: String | null) => {
     const response = await fetch(`https://itunes.apple.com/lookup?id=${id}&media=podcast&entity=podcastEpisode&limit=100`);
     const podcast = await response.json();
     const [firstElement, ...restOfArray] = podcast.results;
     const selectedPodcast = firstElement as PodcastDetailed
     const tracks = restOfArray as Track[];
-    set({ tracks: tracks, selectedPodcast: selectedPodcast});
+
+    if (episodeId) {
+      const selectedTrack = tracks.find((track: Track) => track.trackId === +episodeId);
+      set({ selectedTrack: selectedTrack });
+    }
+    set({ tracks: tracks, selectedPodcast: selectedPodcast });
+    
   },
   chooseTrack: async (id: String) => {
-   const response = get().tracks;
+    const response = get().tracks;
     const selectedTrack = response.find((track: Track) => track.trackId === +id);
     set({ selectedTrack: selectedTrack });
   },
-  clearSelectedPodcast: () => set({ selectedPodcast: null}),
-  filteredPodcasts: null,
+  clearSelectedPodcast: () => {
+    console.log('clearing selected podcast');
+    set({ selectedPodcast: null, tracks: [], selectedTrack: null })
+  },
+  clearSelectedTrack: () => {
+    console.log('clearing selected track');
+    set({ selectedTrack: null})
+  },
   searchPodcasts: (searchValue: string) => {
     const podcasts = get().podcasts;
     const filtered = podcasts.filter((podcast: Podcast) => {
@@ -53,6 +67,6 @@ export const usePodcastStore = create<PodcastStore & Actions>((set, get) => ({
       const author = podcast['im:artist'].label.toLowerCase();
       return name.includes(searchValue) || author.includes(searchValue);
     });
-    set({ filteredPodcasts: filtered});
+    set({ filteredPodcasts: filtered });
   }
 }))

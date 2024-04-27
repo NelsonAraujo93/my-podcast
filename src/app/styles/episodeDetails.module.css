@@ -1,0 +1,38 @@
+.episodeDetailsContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  /* padding: 40px; */
+  height: auto;
+  /* margin-top: 20px; */
+  width: 100%;
+}
+
+.episodeDetails {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 20px;
+  width: 100%;
+  width: 100%;
+  box-shadow: 0px 2px 4px 2px gainsboro;
+  border-radius: 4px;
+  padding: 20px;
+  text-align: left;
+}
+
+.episodeDetails h1 {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.episodeDetails p {
+  text-align: justify;
+  font-size: 0.8rem;
+}
+
+.musicPlayer {
+  width: 100%;
+}

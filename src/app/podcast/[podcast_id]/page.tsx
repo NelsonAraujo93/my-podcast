@@ -8,14 +8,17 @@ import Link from "next/link";
 export default function Page({params} : {params: {podcast_id: string}}) {
   const tracks = usePodcastStore(state => state.tracks);
   useEffect(() => {
-    usePodcastStore.getState().getTracks(params.podcast_id);
-  }, [params.podcast_id]);
+    if (tracks.length === 0){
+      usePodcastStore.getState().getTracks(params.podcast_id, null);
+    }
+  }, [tracks, params.podcast_id]);
 
   const durationFormatter = (duration: number) => {
     const time = new Date(duration);
-    const minutes = time.getUTCMinutes();
-    const seconds = time.getUTCSeconds();
-    return `${minutes}:${seconds}`;
+    const hours = time.getHours() - 1;
+    const minutes = time.getMinutes();
+    const seconds = time.getSeconds();
+    return `${hours}:${minutes}:${seconds}`;
   }
 
   const dateFormatter = (date: string) => {
