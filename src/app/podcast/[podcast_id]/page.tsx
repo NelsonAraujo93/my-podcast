@@ -43,11 +43,13 @@ export default function Page({params} : {params: {podcast_id: string}}) {
           <tbody>
             {tracks.map((track: Track) => (
               <tr key={track.trackId}>
-                <Link className={styles.tdLink} href={`/podcast/${params.podcast_id}/episode/${track.trackId}`}>
-                  <td>{track.trackName}</td>
+                  <td>
+                    <Link className={styles.tdLink} href={`/podcast/${params.podcast_id}/episode/${track.trackId}`}>
+                      {track.trackName}
+                    </Link >
+                  </td>
                   <td>{dateFormatter(track.releaseDate)}</td>
                   <td>{durationFormatter(track.trackTimeMillis)}</td>
-                </Link>
               </tr>
             ))}
           </tbody>
