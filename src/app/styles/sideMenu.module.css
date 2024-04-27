@@ -1,0 +1,16 @@
+.dashBoard {
+    display: flex;
+    height: calc(100% - 136px);
+    flex-direction: row;
+    padding: 40px;
+    box-sizing: border-box;
+    gap: 40px;
+}
+
+.sideMenu {
+    width: 300px;
+    height: auto;
+    justify-content: center;
+    align-items: flex-start;
+    display: flex;
+}
