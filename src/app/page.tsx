@@ -11,6 +11,7 @@ const HomePage: React.FC = () => {
   const filteredPodcasts = usePodcastStore(state => state.filteredPodcasts);
 
   useEffect(() => {
+    usePodcastStore.getState().clearSelectedPodcast();
     if (podcasts.length === 0) {
       usePodcastStore.getState().getPodcasts();
     }
