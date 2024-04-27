@@ -3,19 +3,23 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-top: 20px;
+  gap: 20px;
+  width: 100%;
 }
 
-.episdodeCounterContainer {
+.episodesCounterContainer {
   display: flex;
-  justify-content: center;
+  width: 100%;
+  justify-content: flex-start;
   align-items: center;
   gap: 10px;
-
+  box-shadow: 0px 2px 4px 2px gainsboro;
+  border-radius: 4px;
+  padding: 10px;
 }
 
 .episodesCounter {
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   font-weight: 700;
 }
 
@@ -24,4 +28,46 @@
   grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
   gap: 20px;
   padding-top: 20px;
+}
+
+.tableContainer {
+  overflow-y: scroll;
+  padding-right: 20px;
+  box-sizing: border-box;
+  box-shadow: 0px 2px 4px 2px gainsboro;
+  border-radius: 4px;
+  width: 100%;
+}
+
+.tableContainer table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.tableContainer thead {
+  border-bottom: 1px solid #d0d0d0;
+}
+
+.tableContainer th {
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-align: left;
+  padding: 10px;
+}
+
+.tableContainer td {
+  font-size: 0.8rem;
+  padding: 10px;
+}
+
+.tableContainer tr {
+  border-bottom: 1px solid #d0d0d0;
+}
+
+.tableContainer tr:nth-child(even) {
+  background-color: rgb(240, 240, 240);
+}
+
+.tdLink {
+  display: contents;
 }

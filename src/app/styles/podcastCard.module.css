@@ -39,3 +39,9 @@
   color: #737272;
   font-weight: 400;
 }
+
+
+.cardContainer {
+  display: flex;
+  justify-content: center;
+}
