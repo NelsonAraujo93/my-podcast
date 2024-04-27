@@ -1,6 +1,10 @@
+'use client'
 import styles from '@/app/styles/home.module.css';
+import { usePodcastStore } from '@/store/podcastStore';
 import Link from 'next/link';
+
 export default function Layout({ children }: { children: React.ReactNode }) {
+  const loading = usePodcastStore(state => state.loading);
   return (
     <html className={styles.html}>
       <head>
@@ -14,7 +18,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             className={styles.link}
           >Podcaster</Link>
           <div
-            className={styles.pulse}
+            className={loading? styles.pulse : styles.hidden}
           ></div>
         </nav>
         {children}
