@@ -3,7 +3,7 @@ import PodcastDetailed from '@/types/PodcastDetailed';
 import Track from '@/types/Track';
 import { get } from 'http'
 import { create } from 'zustand'
-const api = process.env.NODE_ENV === 'production' ? 'https://podcast-app.vercel.app/api' : 'http://localhost:3000/api';
+const api = process.env.NODE_ENV === 'production' ? 'https://my-podcast-three.vercel.app/api' : 'http://localhost:3000/api';
 
 type PodcastStore = {
   podcasts: Podcast[];
