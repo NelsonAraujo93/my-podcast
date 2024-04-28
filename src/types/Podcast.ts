@@ -1,4 +1,5 @@
 export default interface Podcast {
+  createdAt: Date;
   "im:name": {
     label: string;
   };

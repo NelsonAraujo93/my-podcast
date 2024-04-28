@@ -26,4 +26,6 @@ export default interface Track {
   episodeContentType: string;
   kind: string;
   wrapperType: string;
+  createdAt: Date;
+  artistName: string;
 }

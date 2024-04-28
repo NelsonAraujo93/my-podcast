@@ -31,4 +31,5 @@ export default interface PodcastDetailed {
   artworkUrl600: string;
   genreIds: string[];
   genres: string[];
+  description: string;
 }
