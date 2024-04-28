@@ -41,7 +41,7 @@
   font-weight: 400;
 }
 
-@media screen and (max-width: 680px){
+@media screen and (max-width: 860px){
   .podcastSummary {
     width: 100%;
     align-items: center;

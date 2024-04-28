@@ -2,10 +2,19 @@ import Podcast from "@/types/Podcast";
 import Image from "next/image";
 import styles from "@/app/styles/podcastCard.module.css";
 import Link from "next/link";
+import { usePodcastStore } from "@/store/podcastStore";
 
 export default function PodcastCard({ podcast }: { podcast: Podcast }) {
+  const handleOnClick = () => {
+    usePodcastStore.getState().selectPodcast(podcast);
+  };
+
   return (
-    <Link className={styles.cardContainer} href={`/podcast/${podcast.id.attributes["im:id"]}`}>
+    <Link
+      className={styles.cardContainer}
+      href={`/podcast/${podcast.id.attributes["im:id"]}`}
+      onClick={handleOnClick}
+    >
       <div className={styles.card}>
         <Image
           src={podcast['im:image'][2].label}
