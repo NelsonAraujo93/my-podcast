@@ -1,9 +1,8 @@
 import Podcast from '@/types/Podcast';
-import PodcastDetailed from '@/types/PodcastDetailed';
 import Track from '@/types/Track';
-import { get } from 'http'
 import { create } from 'zustand'
-const api = process.env.NODE_ENV === 'production' ? 'https://my-podcast-three.vercel.app/api' : 'http://localhost:3000/api';
+
+const URL = process.env.API;
 
 type PodcastStore = {
   podcasts: Podcast[];
@@ -34,7 +33,7 @@ export const usePodcastStore = create<PodcastStore & Actions>((set, get) => ({
   getPodcasts: async () => {
     set({ loading: true });
     try {
-      const response = await fetch(`${api}/podcasts`);
+      const response = await fetch(`https://my-podcast-three.vercel.app/api/podcasts`);
       const podcasts = await response.json();
       const fetchedPodcasts = podcasts as Podcast[];
       set({ podcasts: fetchedPodcasts });
@@ -47,7 +46,7 @@ export const usePodcastStore = create<PodcastStore & Actions>((set, get) => ({
   getTracks: async (id: String, episodeId: String | null) => {
     set({ loading: true });
     try {
-      const response = await fetch(`${api}/episodes?id=${id}`);
+      const response = await fetch(`https://my-podcast-three.vercel.app/api/episodes?id=${id}`);
       if (!response.ok) {
         throw new Error('Failed to fetch tracks');
       }
@@ -57,7 +56,7 @@ export const usePodcastStore = create<PodcastStore & Actions>((set, get) => ({
       const filteredTracks = rest;
       let selectedPodcast = get().selectedPodcast;
       if (!selectedPodcast) {
-        let selectedPodcastFetch = await fetch(`${api}/podcasts/${id}`);
+        let selectedPodcastFetch = await fetch(`https://my-podcast-three.vercel.app/api/podcasts/${id}`);
         selectedPodcast = await selectedPodcastFetch.json();
       }
 
