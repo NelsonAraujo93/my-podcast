@@ -3,10 +3,11 @@ import PodcastDetailed from '@/types/PodcastDetailed';
 import Track from '@/types/Track';
 import { get } from 'http'
 import { create } from 'zustand'
+const api = process.env.NODE_ENV === 'production' ? 'https://podcast-app.vercel.app/api' : 'http://localhost:3000/api';
 
 type PodcastStore = {
   podcasts: Podcast[];
-  selectedPodcast: PodcastDetailed | null;
+  selectedPodcast: Podcast | null;
   filteredPodcasts: Podcast[] | null;
   tracks: Track[];
   selectedTrack: Track | null;
@@ -20,6 +21,7 @@ type Actions = {
   getTracks: (id: String, episodeId: String | null) => void;
   chooseTrack: (id: String) => void;
   clearSelectedTrack: () => void;
+  selectPodcast: (podcast: Podcast) => void;
 }
 
 export const usePodcastStore = create<PodcastStore & Actions>((set, get) => ({
@@ -32,9 +34,9 @@ export const usePodcastStore = create<PodcastStore & Actions>((set, get) => ({
   getPodcasts: async () => {
     set({ loading: true });
     try {
-      const response = await fetch('https://itunes.apple.com/us/rss/toppodcasts/limit=100/genre=1310/json');
+      const response = await fetch(`${api}/podcasts`);
       const podcasts = await response.json();
-      const fetchedPodcasts = podcasts.feed.entry as Podcast[];
+      const fetchedPodcasts = podcasts as Podcast[];
       set({ podcasts: fetchedPodcasts });
     } catch (error) {
       console.error('Error fetching podcasts:', error);
@@ -45,20 +47,32 @@ export const usePodcastStore = create<PodcastStore & Actions>((set, get) => ({
   getTracks: async (id: String, episodeId: String | null) => {
     set({ loading: true });
     try {
-      const response = await fetch(`https://itunes.apple.com/lookup?id=${id}&media=podcast&entity=podcastEpisode&limit=100`);
-      const podcast = await response.json();
-      const [firstElement, ...restOfArray] = podcast.results;
-      const selectedPodcast = firstElement as PodcastDetailed;
-      const tracks = restOfArray as Track[];
+      const response = await fetch(`${api}/episodes?id=${id}`);
+      if (!response.ok) {
+        throw new Error('Failed to fetch tracks');
+      }
+      
+      const tracks = await response.json();
+      const [firstElement, ...rest] = tracks as Track[];
+      const filteredTracks = rest;
+      let selectedPodcast = get().selectedPodcast;
+      if (!selectedPodcast) {
+        let selectedPodcastFetch = await fetch(`${api}/podcasts/${id}`);
+        selectedPodcast = await selectedPodcastFetch.json();
+      }
 
       if (episodeId) {
-        const selectedTrack = tracks.find((track: Track) => track.trackId === +episodeId);
-        set({ selectedTrack, loading: false });
+        const selectedTrack = filteredTracks.find((track: Track) => track.trackId === +episodeId);
+        if (selectedTrack) {
+          set({ selectedTrack: selectedTrack, selectedPodcast: selectedPodcast , loading: false });
+        } else {
+          console.error('Selected track not found');
+        }
       }
-      set({ tracks, selectedPodcast });
+      
+      set({ tracks: filteredTracks, selectedPodcast: selectedPodcast, loading: false });
     } catch (error) {
       console.error('Error fetching tracks:', error);
-    } finally {
       set({ loading: false });
     }
   },
@@ -87,5 +101,8 @@ export const usePodcastStore = create<PodcastStore & Actions>((set, get) => ({
       return name.includes(searchValue) || author.includes(searchValue);
     });
     set({ filteredPodcasts: filtered });
+  },
+  selectPodcast: (podcast: Podcast) => {
+    set({ selectedPodcast: podcast });
   }
 }))
