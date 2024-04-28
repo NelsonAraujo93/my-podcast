@@ -1,7 +1,7 @@
 {
   "functions": {
-    "myFunction": {
-      "maxDuration": 30
+    "app/api/**/*": {
+      "maxDuration": 5
     }
   }
 }
