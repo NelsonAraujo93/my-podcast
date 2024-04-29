@@ -108,6 +108,11 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 
 Deployment link - [Live-demo](https://my-podcast-three.vercel.app/)
 
+### Testing
+```
+  npm run test
+```
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## 👥 Authors <a name="authors"></a>
