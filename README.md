@@ -26,7 +26,7 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
   - [❓ FAQ ](#-faq-)
   - [📝 License ](#-license-)
 
-# 📖 My Podcast App <a name="about-project"></a>
+# 📖 My Podcast App <a name="-podcast-app-"></a>
 
 **My Podcast App** This is a RoR project to test my skills in ERD, ORM, Ruby, RoR, SQL and GitFlow.
 ## 🛠 Built With <a name="built-with"></a>
