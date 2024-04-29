@@ -29,6 +29,11 @@
   font-weight: 400;
 }
 
+.description {
+  max-height: 180px;
+  overflow-y: scroll;
+}
+
 .description p {
   font-size: 0.8rem;
   color: black;
