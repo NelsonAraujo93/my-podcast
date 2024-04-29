@@ -128,7 +128,7 @@ Deployment link - [Live-demo](https://my-podcast-three.vercel.app/)
 
 Contributions, issues, and feature requests are welcome!
 
-Feel free to check the [issues page](https://github.com/NelsonAraujo93/my-podcast/issues/1).
+Feel free to check the [issues page](https://github.com/NelsonAraujo93/my-podcast/issues/12).
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
