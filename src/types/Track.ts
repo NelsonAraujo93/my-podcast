@@ -1,5 +1,5 @@
 export default interface Track {
-  countrty: string;
+  country: string;
   previewUrl: string;
   closedCaptioning: string;
   collectionId: number;
@@ -12,7 +12,7 @@ export default interface Track {
   episodeUrl: string;
   feedUrl: string;
   artistIds: number[];
-  genres: {name: string, id: string}[];
+  genres: { name: string, id: string }[];
   episodeGuid: string;
   description: string;
   releaseDate: string;

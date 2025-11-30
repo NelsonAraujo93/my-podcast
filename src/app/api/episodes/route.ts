@@ -1,5 +1,4 @@
 import clientPromise from "@/app/lib/mongodb";
-import PodcastDetailed from "@/types/PodcastDetailed";
 import Track from "@/types/Track";
 
 export async function GET(request: Request) {
@@ -34,7 +33,7 @@ export async function GET(request: Request) {
       console.log('Storing updated data - episodes');
       const episodesToInsert = newDataJson.results.map((item: any) => ({
         createdAt: new Date(),
-        countrty: item.countrty,
+        country: item.country,
         previewUrl: item.previewUrl,
         closedCaptioning: item.closedCaptioning,
         collectionId: item.collectionId,

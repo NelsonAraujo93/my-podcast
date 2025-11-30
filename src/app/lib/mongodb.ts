@@ -1,6 +1,10 @@
 import { MongoClient, ServerApiVersion } from "mongodb";
 
-const uri = 'mongodb+srv://nelsonaraujoparedes93:IuMU7USX8EiNxfbS@cluster0.kidjvbk.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0';
+if (!process.env.MONGODB_URI) {
+  throw new Error('Invalid/Missing environment variable: "MONGODB_URI"');
+}
+
+const uri = process.env.MONGODB_URI;
 const options = {
   serverApi: {
     version: ServerApiVersion.v1,
