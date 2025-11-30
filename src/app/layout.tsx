@@ -5,6 +5,7 @@ import Link from 'next/link';
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   const loading = usePodcastStore(state => state.loading);
+  const year = new Date().getFullYear();
   return (
     <html className={styles.html}>
       <head>
@@ -18,12 +19,12 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             className={styles.link}
           >Podcaster</Link>
           <div
-            className={loading? styles.pulse : styles.hidden}
+            className={loading ? styles.pulse : styles.hidden}
           ></div>
         </nav>
         {children}
         <footer className={styles.footer}>
-          <p>© 2024 My Podcast - Nelson Araujo</p>
+          <p>© {year} My Podcast - Nelson Araujo</p>
         </footer>
       </body>
     </html>
